@@ -1,0 +1,82 @@
+[gd_scene load_steps=12 format=3 uid="uid://doh4ouw5g78bv"]
+
+[ext_resource type="Script" uid="uid://der21atfst7ls" path="res://addons/Dynamic_Water/Scripts/water_body.gd" id="1_g14j6"]
+[ext_resource type="Shader" uid="uid://dqjk364d4adn2" path="res://addons/Dynamic_Water/Shaders/water_polygon.gdshader" id="2_vbegm"]
+[ext_resource type="Texture2D" uid="uid://14fnpq0615et" path="res://icon.svg" id="3_ehkex"]
+[ext_resource type="Script" uid="uid://doxqbh8l0x8a6" path="res://addons/Dynamic_Water/Scripts/SmoothPath2D.gd" id="4_xersf"]
+[ext_resource type="Shader" uid="uid://ximaedhou0lk" path="res://addons/Dynamic_Water/Shaders/water_border.gdshader" id="5_00tp4"]
+[ext_resource type="Script" uid="uid://b57pfstjnjgm8" path="res://Scripts/character_body_2d.gd" id="6_77dp3"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_k12tt"]
+noise_type = 0
+frequency = 0.0169
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_h1bgf"]
+seamless = true
+seamless_blend_skirt = 0.641
+noise = SubResource("FastNoiseLite_k12tt")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wsu2k"]
+shader = ExtResource("2_vbegm")
+shader_parameter/color = Color(0.484598, 0.671843, 0.893018, 1)
+shader_parameter/_noise = SubResource("NoiseTexture2D_h1bgf")
+shader_parameter/noise_speed = 0.2
+shader_parameter/noise_scale = 1.001
+shader_parameter/noise_strength = 0.244
+shader_parameter/scale_y = 5.279
+shader_parameter/y_zoom = 1.309
+shader_parameter/wlevel_oscillation = 3.0
+shader_parameter/fade = 0.372
+
+[sub_resource type="Curve2D" id="Curve2D_g14j6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, -8, 0, 8, 0, 29.2857, 0, -8, 0, 8, 0, 58.5714, 0, -8, 0, 8, 0, 87.8571, 0, -8, 0, 8, 0, 117.143, 0, -8, 0, 8, 0, 146.429, 0, -8, 0, 8, 0, 175.714, 0, -8, 0, 8, 0, 205, 0, -8, 0, 8, 0, 234.286, 0, -8, 0, 8, 0, 263.571, 0, -8, 0, 8, 0, 292.857, 0, -8, 0, 8, 0, 322.143, 0, -8, 0, 8, 0, 351.429, 0, -8, 0, 8, 0, 380.714, 0, 0, 0, 0, 0, 410, 0)
+}
+point_count = 15
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bd61w"]
+shader = ExtResource("5_00tp4")
+shader_parameter/_color = Color(0.75, 0.845833, 1, 0.784314)
+shader_parameter/wlevel_oscillation = 3.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+motion_mode = 1
+script = ExtResource("6_77dp3")
+
+[node name="Icon" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(202, 92)
+texture = ExtResource("3_ehkex")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CharacterBody2D"]
+position = Vector2(202, 92)
+polygon = PackedVector2Array(59.1, -64, -59, -64, -63.8, -59, -64, 61, -60.3, 64, 59.6, 64, 63.9, 59, 64, -61.1)
+
+[node name="Water_Body" type="Node2D" parent="."]
+position = Vector2(139, 136)
+script = ExtResource("1_g14j6")
+d = 0.08
+spread = 1.0
+width = 410
+spring_number = 15
+_depth = 185
+
+[node name="Water_Polygon" type="Polygon2D" parent="Water_Body"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_wsu2k")
+position = Vector2(-2, 0)
+texture = ExtResource("3_ehkex")
+polygon = PackedVector2Array(0, 0, 3.45089, 0, 7.15681, 0, 11.6429, 0, 16.5039, 0, 21.3348, 0, 25.7305, 0, 29.2857, 0, 32.5128, 0, 36.1116, 0, 39.9581, 0, 43.9286, 0, 47.899, 0, 51.7455, 0, 55.3443, 0, 58.5714, 0, 61.7985, 0, 65.3973, 0, 69.2439, 0, 73.2143, 0, 77.1847, 0, 81.0313, 0, 84.63, 0, 87.8571, 0, 91.0843, 0, 94.683, 0, 98.5296, 0, 102.5, 0, 106.47, 0, 110.317, 0, 113.916, 0, 117.143, 0, 120.37, 0, 123.969, 0, 127.815, 0, 131.786, 0, 135.756, 0, 139.603, 0, 143.201, 0, 146.429, 0, 149.656, 0, 153.254, 0, 157.101, 0, 161.071, 0, 165.042, 0, 168.888, 0, 172.487, 0, 175.714, 0, 178.941, 0, 182.54, 0, 186.387, 0, 190.357, 0, 194.328, 0, 198.174, 0, 201.773, 0, 205, 0, 208.227, 0, 211.826, 0, 215.672, 0, 219.643, 0, 223.613, 0, 227.46, 0, 231.059, 0, 234.286, 0, 237.513, 0, 241.112, 0, 244.958, 0, 248.929, 0, 252.899, 0, 256.746, 0, 260.344, 0, 263.571, 0, 266.799, 0, 270.397, 0, 274.244, 0, 278.214, 0, 282.185, 0, 286.031, 0, 289.63, 0, 292.857, 0, 296.084, 0, 299.683, 0, 303.53, 0, 307.5, 0, 311.47, 0, 315.317, 0, 318.916, 0, 322.143, 0, 325.37, 0, 328.969, 0, 332.815, 0, 336.786, 0, 340.756, 0, 344.603, 0, 348.201, 0, 351.429, 0, 354.656, 0, 358.254, 0, 362.101, 0, 366.071, 0, 370.042, 0, 373.888, 0, 377.487, 0, 380.714, 0, 384.27, 0, 388.665, 0, 393.496, 0, 398.357, 0, 402.843, 0, 406.549, 0, 410, 0, 410, 185, 0, 185)
+
+[node name="Water_Border" type="Path2D" parent="Water_Body"]
+unique_name_in_owner = true
+scale = Vector2(0.997803, 1.03906)
+curve = SubResource("Curve2D_g14j6")
+script = ExtResource("4_xersf")
+
+[node name="Line2D" type="Line2D" parent="Water_Body/Water_Border"]
+material = SubResource("ShaderMaterial_bd61w")
+points = PackedVector2Array(0, 0, 3.45089, 0, 7.15681, 0, 11.6429, 0, 16.5039, 0, 21.3348, 0, 25.7305, 0, 29.2857, 0, 32.5128, 0, 36.1116, 0, 39.9581, 0, 43.9286, 0, 47.899, 0, 51.7455, 0, 55.3443, 0, 58.5714, 0, 61.7985, 0, 65.3973, 0, 69.2439, 0, 73.2143, 0, 77.1847, 0, 81.0313, 0, 84.63, 0, 87.8571, 0, 91.0843, 0, 94.683, 0, 98.5296, 0, 102.5, 0, 106.47, 0, 110.317, 0, 113.916, 0, 117.143, 0, 120.37, 0, 123.969, 0, 127.815, 0, 131.786, 0, 135.756, 0, 139.603, 0, 143.201, 0, 146.429, 0, 149.656, 0, 153.254, 0, 157.101, 0, 161.071, 0, 165.042, 0, 168.888, 0, 172.487, 0, 175.714, 0, 178.941, 0, 182.54, 0, 186.387, 0, 190.357, 0, 194.328, 0, 198.174, 0, 201.773, 0, 205, 0, 208.227, 0, 211.826, 0, 215.672, 0, 219.643, 0, 223.613, 0, 227.46, 0, 231.059, 0, 234.286, 0, 237.513, 0, 241.112, 0, 244.958, 0, 248.929, 0, 252.899, 0, 256.746, 0, 260.344, 0, 263.571, 0, 266.799, 0, 270.397, 0, 274.244, 0, 278.214, 0, 282.185, 0, 286.031, 0, 289.63, 0, 292.857, 0, 296.084, 0, 299.683, 0, 303.53, 0, 307.5, 0, 311.47, 0, 315.317, 0, 318.916, 0, 322.143, 0, 325.37, 0, 328.969, 0, 332.815, 0, 336.786, 0, 340.756, 0, 344.603, 0, 348.201, 0, 351.429, 0, 354.656, 0, 358.254, 0, 362.101, 0, 366.071, 0, 370.042, 0, 373.888, 0, 377.487, 0, 380.714, 0, 384.27, 0, 388.665, 0, 393.496, 0, 398.357, 0, 402.843, 0, 406.549, 0, 410, 0)
+width = 3.0

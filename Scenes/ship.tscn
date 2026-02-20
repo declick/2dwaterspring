@@ -1,0 +1,81 @@
+[gd_scene load_steps=15 format=3 uid="uid://cmil8jk0emnmw"]
+
+[ext_resource type="Texture2D" uid="uid://c4v3gjk672c5x" path="res://Sprites/Ship/1.png" id="1_1m05r"]
+[ext_resource type="Script" uid="uid://bhdyw5pb5w761" path="res://Scenes/ship.gd" id="1_ssryt"]
+[ext_resource type="Texture2D" uid="uid://bcl3pp47rx4x" path="res://Sprites/Ship/2.png" id="2_ssryt"]
+[ext_resource type="Texture2D" uid="uid://cahrqcld51exv" path="res://Sprites/Ship/3.png" id="3_sk2ms"]
+[ext_resource type="Texture2D" uid="uid://dnrupt316m8bm" path="res://Sprites/Ship/4.png" id="4_odhhf"]
+[ext_resource type="Texture2D" uid="uid://jniemm54028g" path="res://Sprites/Ship/5.png" id="5_xn00d"]
+[ext_resource type="Texture2D" uid="uid://ky1jtrslpbqd" path="res://Sprites/Ship/6.png" id="6_jrg3c"]
+[ext_resource type="Texture2D" uid="uid://8ymln4d68iwq" path="res://Sprites/Sail/1.png" id="7_l5ngj"]
+[ext_resource type="Texture2D" uid="uid://beq4hvwal4s42" path="res://Sprites/Sail/2.png" id="8_s1bny"]
+[ext_resource type="Texture2D" uid="uid://xjinrsp1xbtw" path="res://Sprites/Sail/3.png" id="9_v6brg"]
+[ext_resource type="Texture2D" uid="uid://n4k778pdu2nk" path="res://Sprites/Sail/4.png" id="10_rrloy"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4lamp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1m05r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ssryt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_sk2ms")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_odhhf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_xn00d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_jrg3c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k8as3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_l5ngj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_s1bny")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_v6brg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_rrloy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1m05r"]
+size = Vector2(77, 20)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_ssryt")
+
+[node name="Ship" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4lamp")
+autoplay = "default"
+frame_progress = 0.436989
+
+[node name="Sail" type="AnimatedSprite2D" parent="."]
+position = Vector2(14, -35)
+sprite_frames = SubResource("SpriteFrames_k8as3")
+autoplay = "default"
+frame_progress = 0.996033
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_1m05r")
